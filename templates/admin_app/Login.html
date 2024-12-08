@@ -1,0 +1,161 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        /* General Body and Background Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8; /* Light background for the page */
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Container for the form */
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Header Styling */
+        h1 {
+            color: #00796b; /* Vibrant Green */
+            font-size: 2.5em;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        /* Label Styling */
+        .form-label {
+            font-weight: bold;
+            color: #00796b;
+            font-size: 1.1em;
+        }
+
+        /* Input Fields */
+        .form-control {
+            width: 100%;
+            border: 2px solid #00796b;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 1em;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .form-control:focus {
+            border-color: #004d40;
+            box-shadow: 0 0 10px rgba(0, 77, 64, 0.5);
+        }
+
+        /* Checkbox and Label */
+        .form-check-label {
+            font-size: 1em;
+            color: #00796b;
+        }
+
+        .form-check-input {
+            margin-top: 0.3rem;
+        }
+
+        /* Submit Button */
+        .btn-primary {
+            background-color: #00796b;
+            border: none;
+            padding: 15px;
+            font-size: 1.2em;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #004d40;
+            transform: scale(1.05); /* Slight grow effect */
+        }
+
+        .btn-primary:active {
+            background-color: #00332a; /* Darker shade */
+        }
+
+        /* Link Styling */
+        a {
+            color: #00796b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Smooth Fade-In Animation */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .login-container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
+
+            .btn-primary {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+{% block body %}
+    <div class="login-container">
+        <h1>Login</h1>
+        <form action="{% url 'UserLoginLogic' %}" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="rememberMe">
+                <label class="form-check-label" for="rememberMe">Remember me</label>
+            </div>
+            <button type="submit" class="btn-primary w-100">Login</button>
+            <p class="text-center mt-3">Don't have an account? <a href="{% url 'UserRegisterPageCall' %}">Register here</a></p>
+        </form>
+    </div>
+{% endblock %}
+
+</body>
+</html>

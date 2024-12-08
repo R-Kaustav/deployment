@@ -1,0 +1,7 @@
+{% extends 'Navbar/ProjectNavbar.html' %}
+
+{% block body %}
+<h1>Thank You!</h1>
+<p>Your feedback has been submitted successfully. We appreciate your input!</p>
+<a href="{% url 'user_app:feedback_form' %}">Go back to the Feedback Form</a>
+{% endblock %}

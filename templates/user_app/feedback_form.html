@@ -1,0 +1,28 @@
+{% extends 'Navbar/ProjectNavbar.html' %}
+
+{% block body %}
+<h1>Feedback Form</h1>
+<p>Please provide your feedback below:</p>
+
+<form method="POST" action="{% url 'user_app:submit_feedback' %}">
+    {% csrf_token %}
+    <div>
+        <label for="id_name">Name:</label>
+        {{ form.name }}
+    </div>
+
+    <div>
+        <label for="id_email">Email:</label>
+        {{ form.email }}
+    </div>
+
+    <div>
+        <label for="id_feedback">Feedback:</label>
+        {{ form.feedback }}
+    </div>
+
+    <div>
+        <button type="submit">Submit Feedback</button>
+    </div>
+</form>
+{% endblock %}

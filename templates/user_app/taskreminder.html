@@ -1,0 +1,143 @@
+{% extends 'Navbar/ProjectNavbar.html' %}
+{% block body %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Reminder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        .task-container {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .task-list {
+            margin: 10px 0;
+        }
+        .task-list li {
+            padding: 10px;
+            margin-bottom: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fefefe;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .input-group {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .task-input, .task-time-input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .task-input {
+            flex: 2;
+        }
+        .add-task-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .add-task-btn:hover {
+            background-color: #0056b3;
+        }
+        .remove-task-btn {
+            padding: 5px 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .remove-task-btn:hover {
+            background-color: #a71d2a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Task Reminder</h1>
+    <p>Add tasks, set reminders, and remove completed tasks easily!</p>
+
+    <div class="task-container">
+        <h2>Task List</h2>
+        <ul class="task-list" id="taskList">
+            <!-- Tasks will appear here -->
+        </ul>
+        <div class="input-group">
+            <input type="text" id="taskInput" class="task-input" placeholder="Enter a new task">
+            <input type="datetime-local" id="taskTimeInput" class="task-time-input">
+            <button class="add-task-btn" onclick="addTask()">Add Task</button>
+        </div>
+    </div>
+
+    <script>
+        function addTask() {
+            const taskInput = document.getElementById("taskInput");
+            const taskTimeInput = document.getElementById("taskTimeInput");
+            const taskList = document.getElementById("taskList");
+
+            const taskName = taskInput.value.trim();
+            const taskTime = taskTimeInput.value;
+
+            if (!taskName || !taskTime) {
+                alert("Please enter a task and a reminder time.");
+                return;
+            }
+
+            // Create a new task element
+            const newTask = document.createElement("li");
+
+            // Task content
+            const taskContent = document.createElement("span");
+            taskContent.textContent = taskName + " (Remind at: " + new Date(taskTime).toLocaleString() + ")";
+
+            // Remove button
+            const removeButton = document.createElement("button");
+            removeButton.textContent = "Remove";
+            removeButton.classList.add("remove-task-btn");
+            removeButton.onclick = () => taskList.removeChild(newTask);
+
+            newTask.appendChild(taskContent);
+            newTask.appendChild(removeButton);
+            taskList.appendChild(newTask);
+
+            // Set up a reminder
+            const reminderTime = new Date(taskTime).getTime();
+            const currentTime = new Date().getTime();
+            const timeDifference = reminderTime - currentTime;
+
+            if (timeDifference > 0) {
+                setTimeout(() => {
+                    alert("Reminder: " + taskName);
+                }, timeDifference);
+            } else {
+                alert("The reminder time has already passed. Task added without reminder.");
+            }
+
+            // Clear the input fields
+            taskInput.value = "";
+            taskTimeInput.value = "";
+        }
+    </script>
+</body>
+</html>
+
+{% endblock %}
