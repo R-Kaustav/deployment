@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 # settings.py
-OPENAI_API_KEY = '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'
 
 
 # Application definition
